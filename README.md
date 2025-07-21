@@ -1,2 +1,2 @@
 # Algorithm
-This Repository is for Algorithm test
+This Repository is for Algorithm Learning
