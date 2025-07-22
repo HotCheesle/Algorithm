@@ -24,7 +24,8 @@ def insert_num(head, tail, stu_num, num):
         head.pre = new_node
         head = new_node
         return head, tail
-    (c_node.pre).next = new_node
+    p_node = c_node.pre
+    p_node.next = new_node
     new_node.pre = c_node.pre
     c_node.pre = new_node
     new_node.next = c_node
@@ -35,14 +36,16 @@ nums = list(map(int, sys.stdin.readline().split()))
 
 head = None
 tail = None
-for i in range(n): 
+for i in range(1, n+1): 
     if head is None: 
         head = Node(i)
         tail = head
     else: 
-        insert_num(head, tail, i, nums[i])
+        head, tail = insert_num(head, tail, i, nums[i-1])
 
 node = head
 while node.next is not None: 
-     node.print_stdu_num()
-     
+    node.print_stdu_num()
+    node = node.next
+tail.print_stdu_num()
+    
