@@ -20,7 +20,7 @@ for stud in stud_lst:
         for i in range(1, sw_N//2): 
             left = num - i
             right = num + i
-            if left-1 < 0 or right+1 > sw_N: break
+            if left-1 < 0 or right > sw_N: break
             if sw_lst[left-1] != sw_lst[right-1]: break
             switching(left)
             switching(right)
