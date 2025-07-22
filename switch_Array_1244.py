@@ -3,8 +3,7 @@ import sys
 sw_N = int(sys.stdin.readline())
 sw_lst = list(map(int, sys.stdin.readline().split()))
 stud_N = int(sys.stdin.readline())
-stud_lst = list(list(map(int, sys.stdin.readline().split()))
-                for _ in range(stud_N))
+stud_lst = list(list(map(int, sys.stdin.readline().split()))for _ in range(stud_N))
 
 def switching(num): 
     sw_lst[num-1] = sw_lst[num-1] ^ 1
@@ -20,7 +19,7 @@ for stud in stud_lst:
         for i in range(1, sw_N//2): 
             left = num - i
             right = num + i
-            if left-1 < 0 or right+1 > sw_N: break
+            if left-1 < 0 or right > sw_N: break
             if sw_lst[left-1] != sw_lst[right-1]: break
             switching(left)
             switching(right)
