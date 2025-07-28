@@ -1,15 +1,10 @@
-mat = []
-for _ in range(9): 
-    mat.append(list(map(int, input().split())))
+n1, n2 = map(int, input().split())
 
-max_val = 0
-y_m, x_m = 0, 0
-for y in range(9): 
-    for x in range(9): 
-        if max_val < mat[y][x]: 
-            max_val = mat[y][x]
-            y_m = y
-            x_m = x
-
-print(max_val)
-print(str(y_m + 1) + ' ' + str(x_m + 1))
+div_list = []
+for i in range(1, n1 + 1): 
+    if n1 % i == 0: 
+        div_list.append(i)
+try: 
+    print(div_list[n2-1])
+except: 
+    print(0)
