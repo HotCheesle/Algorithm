@@ -1,6 +1,5 @@
-prime_num_list = [i for i in range(1, 1001)]
+prime_num_list = [i for i in range(2, 1001)]
 for p in prime_num_list: 
-    if p == 1: continue
     rm = p * 2
     while rm < 1001: 
         try: 
@@ -9,7 +8,6 @@ for p in prime_num_list:
             rm += p
             continue
         
-print(len(prime_num_list))
 n = int(input())
 num_list = list(map(int, input().split()))
 
