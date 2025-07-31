@@ -44,7 +44,7 @@ while 0 in ratio[0]:
         if ratio[0][max_idx+i] == 0: 
             ratio[0][max_idx+i] = -1
             schedule[0][max_idx+i] = 0
-            schedule[1][i] = 0
+            schedule[1][max_idx+i] = 0
 
     for i in range(max_idx): # 선택 불가능 날 제외
         for d in range(schedule[0][i]): 
