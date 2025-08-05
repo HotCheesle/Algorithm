@@ -3,26 +3,20 @@ stairs = []
 for _ in range(n): 
     stairs.append(int(input()))
 
-step = [0 for _ in range(n-3)]
-step.append(stairs[n-1] + stairs[n-3]) # n-2번째에서 도착지점으로 뛴 값
-step.append(stairs[n-1] + stairs[n-2]) # n-1번째에서 도착지점으로 뛴 값
-step.append(stairs[n-1]) # 도착지점은 반드시 밟아야 함
-double_step = False
-
 def best_step(idx): 
-    global double_step
-    one_max = stairs[idx] + step[idx+1] # 바로 이전에서 한칸 내려옴 이 경우 이전값은 두칸 점프해서 내려온 상태
-    two_max = stairs[idx] + step[idx+2] # 두칸 이전에서 점프해서 내려옴'
-    if double_step: one_max -= stairs[idx+1] # 이전 값이 한칸 이미 한칸 내려온 상태일 경우 취소하고 두칸 내려온 것으로 간주
-    if one_max > two_max: 
-        step[idx] = one_max
-        double_step = True
-    else: 
-        step[idx] = two_max
-        double_step = False
+    one_step = stairs[idx-1] + stairs[idx] + step[idx-3] # 두칸 후 한칸 연속으로 올라오는 경우
+    two_step = stairs[idx] + step[idx-2] # 두칸 점프로 올라오는 경우
+    step[idx] = max(one_step, two_step)
 
+if n < 3: 
+    print(sum(stairs))
+else: 
+    step = [0 for _ in range(n)]
+    step[0] = stairs[0] # 첫번째 계단
+    step[1] = stairs[0] + stairs[1] # 첫번째 + 두번째 계단
+    step[2] = stairs[2] + max(stairs[0], stairs[1]) # 세번째 계단은 확정, 첫번째와 두번째 중 큰 계단을 밟음
 
-for i in range(n-4, -1, -1): 
-    best_step(i)
+    for i in range(3, n): 
+        best_step(i)
 
-print(step[0])
+    print(step[n-1])
