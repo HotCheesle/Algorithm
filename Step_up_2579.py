@@ -3,15 +3,20 @@ stairs = []
 for _ in range(n): 
     stairs.append(int(input()))
 
-step = [0 for _ in range(n)]
-
 def best_step(idx): 
-    step[idx] = max(stairs[idx] + step[idx+2], stairs[idx] + stairs[idx+1] + step[idx+3])
+    one_step = stairs[idx-1] + stairs[idx] + step[idx-3] # 두칸 후 한칸 연속으로 올라오는 경우
+    two_step = stairs[idx] + step[idx-2] # 두칸 점프로 올라오는 경우
+    step[idx] = max(one_step, two_step)
 
-step[n-1] = stairs[n-1]
-step[n-2] = stairs[n-1] + stairs[n-2]
-step[n-3] = max(stairs[n-1] + stairs[n-2], stairs[n-1] + stairs[n-3])
-for i in range(n-4, -1, -1): 
-    best_step(i)
+if n < 3: 
+    print(sum(stairs))
+else: 
+    step = [0 for _ in range(n)]
+    step[0] = stairs[0] # 첫번째 계단
+    step[1] = stairs[0] + stairs[1] # 첫번째 + 두번째 계단
+    step[2] = stairs[2] + max(stairs[0], stairs[1]) # 세번째 계단은 확정, 첫번째와 두번째 중 큰 계단을 밟음
 
-print(step[0])
+    for i in range(3, n): 
+        best_step(i)
+
+    print(step[n-1])
