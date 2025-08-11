@@ -1,9 +1,11 @@
+import sys
+
 N = int(input())
 queue = [0 for _ in range(100001)]
 start, end = 0, 0
 
 for n in range(N): 
-    comm = tuple(input().split())
+    comm = tuple(sys.stdin.readline().split())
     if len(comm) == 2: 
         queue[end] = int(comm[1])
         end += 1
