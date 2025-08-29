@@ -23,24 +23,35 @@ class Shark():
 
 
 def scan(shark): 
-    queue = deque([(shark.row, shark.col, 0)])
+    queue = deque([])
     visited = set()
     visited.add((shark.row, shark.col))
-    while queue: 
-        cur = queue.popleft()
+    dis = 999
+    cur = (shark.row, shark.col, 0)
+    eatable = set()
+    while cur[2] < dis:
         for r, c in zip(dr, dc): 
             if 0 <= cur[0]+r < N and 0 <= cur[1]+c < N and (cur[0]+r, cur[1]+c) not in visited: 
                 if water[cur[0]+r][cur[1]+c] == 0 or water[cur[0]+r][cur[1]+c] == shark.size: 
                     visited.add((cur[0]+r, cur[1]+c))
                     queue.append((cur[0]+r, cur[1]+c, cur[2]+1))
                 elif water[cur[0]+r][cur[1]+c] < shark.size: 
-                    return cur[0]+r, cur[1]+c, cur[2]+1
-    else:
+                    dis = cur[2]+1
+                    eatable.add((cur[0]+r, cur[1]+c))
+        if not queue: 
+            break
+        cur = queue.popleft()
+    if not eatable: 
         return -1, -1, -1
+    else: 
+        for top in range(N): 
+            for left in range(N): 
+                if (top, left) in eatable: 
+                    return top, left, dis
 
 N = int(input())
 water = list(list(map(int, input().split())) for _ in range(N))
-dr, dc = [-1, 0, 1, 0], [0, -1, 0, 1]
+dr, dc = [-1, 0, 0, 1], [0, -1, 1, 0]
 for row in range(N): 
     for col in range(N): 
         if water[row][col] == 9: 
