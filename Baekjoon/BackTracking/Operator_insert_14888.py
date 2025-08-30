@@ -1,12 +1,13 @@
-def brute_force(i, N, num_list): 
-    nlst = num_list.copy()
+def brute_force(i, N, op_list): 
+    nlst = op_list.copy()
     for idx in range(i, N-1): 
         nlst[i], nlst[idx+1] = nlst[idx+1], nlst[i]
+        if tuple(nlst) in op_order: 
+            continue
         brute_force(i+1, N, nlst)
         nlst[i], nlst[idx+1] = nlst[idx+1], nlst[i]
         brute_force(i+1, N, nlst)
     op_order.add(tuple(nlst))
-
 
 N = int(input())
 num_list = list(map(int, input().split()))
@@ -30,8 +31,11 @@ while op_order:
         elif order[i-1] == '*': 
             x1 *= x2
         elif order[i-1] == '/': 
-            x1 //= x2
+            if x1 >= 0: 
+                x1 //= x2
+            else: 
+                r = abs(x1) // x2
+                x1 = -(r)
     result_list.append(x1)
-print(result_list)
 print(max(result_list))
 print(min(result_list))
