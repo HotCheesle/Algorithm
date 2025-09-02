@@ -1,7 +1,8 @@
+from collections import deque
 import sys
 
 def count_sheep(): 
-    stack = [1]
+    stack = deque([1])
     top = 0
     visited = set()
     while stack: 
