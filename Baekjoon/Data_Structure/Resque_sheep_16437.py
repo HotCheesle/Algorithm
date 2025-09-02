@@ -7,7 +7,12 @@ def count_sheep(branch):
         island = stack[top]
         if len(country[island][1]) == 0: 
             while stack: 
-                i
+                if country[island][0] <= 0: 
+                    island = stack.pop()
+                    top -= 1
+                else: 
+                   pass 
+
 
 
 N = int(input())
@@ -19,5 +24,5 @@ for num in range(2, N+1):
     else: 
         country[num][0] = int(count)
     country[int(lead_to)][2].add(num)
-count_sheep()
+count_sheep(1)
 print(country[1][0])
