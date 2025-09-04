@@ -55,7 +55,7 @@ def run1():
     return okay
 
 
-#sys.stdin = open('sample_input.txt', 'r')
+sys.stdin = open('sample_input.txt', 'r')
 
 T, MARK = map(int, input().split())
 
