@@ -47,10 +47,13 @@ R, C, N = map(int, input().split())
 init_board = list(input() for _ in range(R))
 bombs = Board(R, C, init_board)
 bombs.one_sec_later()
-bombs.one_sec_later()
-bombs.bomb_has_been_planted()
-for time in range(N-2): 
+if N > 1: 
     bombs.one_sec_later()
     bombs.bomb_has_been_planted()
-    bombs.boom()
-bombs.show_board()
+    for time in range(N-2): 
+        bombs.one_sec_later()
+        bombs.bomb_has_been_planted()
+        bombs.boom()
+    bombs.show_board()
+else: 
+    bombs.show_board()
