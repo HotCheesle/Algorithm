@@ -10,7 +10,7 @@ class RankGame:
         p_id = self.player_num
         self.player_num += 1
         room_id = self.find_room(player.get_level())
-        if room_id: 
+        if room_id is not None: 
             self.rooms[room_id].join_player(p_id)
         else: 
             new_room = GameRoom(self.room_capacity, p_id, player.get_level())
@@ -28,9 +28,14 @@ class RankGame:
             if room.is_joinable(): 
                 print("Waiting!")
             else: 
-                print("Started!")
+                print("Started!") 
+            # 닉네임을 사전순으로 출력해야함
+            p_list = []
             for p_id in room.get_player_list(): 
-                print(f"{self.players[p_id].get_level()} {self.players[p_id].get_nickname()}")
+                p_list.append((self.players[p_id].get_level(), self.players[p_id].get_nickname()))
+            p_list.sort(key=lambda n: n[1])
+            for p in p_list: 
+                print(f"{p[0]} {p[1]}")
 
 class GameRoom: 
     def __init__(self, max_player, p_id, lv):
