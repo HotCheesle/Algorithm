@@ -21,12 +21,12 @@ int main() {
   for (int i = 0; i < 999999; i++) {
     node_pool[i].next = &node_pool[i+1];
   }
-  node_pool[1000000].next = &node_pool[0];
 
   for (int tc = 1; tc < 11; tc++) {
     int data_cnt, instruction_cnt, start; // 데이터 개수, 명령어 개수, x번째 노드
     char instruction; // 명령어
     Node* head = nullptr; Node* tail = nullptr; Node* pre = nullptr;
+    Node* new_head = nullptr; Node* new_tail = nullptr;
 
     cin >> data_cnt;
     for (int i = 0; i < data_cnt; i++) { // 초기화
@@ -65,13 +65,19 @@ void new_nnode(int* data, int data_cnt, Node** head, Node** tail) {
   free_node_head = cur->next;
 }
 
-void free_nnode(Node* start, int node_cnt, Node** head, Node** tail){
-  if (start == *head) { // TODO: 끝지점을 head로 해줘야함
-
+void free_nnode(Node* start, int node_cnt, Node** tail){
+  Node* cur = start;
+  for (int i = 0; i < node_cnt-1; i++) {
+    cur = cur -> next;
   }
-  else { // TODO: 순회결과가 tail이면 tail을 start로 변경
-
+  free_node_tail -> next = start -> next;
+  if (*tail == cur) {
+    *tail = start;
   }
+  else {
+    start -> next = cur -> next;
+  }
+
 }
 
 Node* get_pre_start(int start, Node* head) {
